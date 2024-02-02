@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  app:
+    image: app
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: mongo
+      DB_PORT: 27017
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: Book
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+volumes:
+  mongodata:
+    driver: local
