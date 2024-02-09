@@ -7,6 +7,6 @@ COPY . .
 
 RUN bash -c "npm install"
 
-EXPOSE 5000
+EXPOSE 8000
 
 CMD ["npm", "start"]
